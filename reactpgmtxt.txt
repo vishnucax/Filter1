@@ -1,0 +1,649 @@
+1.Expense tracker
+
+import React, { useState } from "react";
+
+function App() {
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [expenses, setExpenses] = useState([]);
+
+  const addExpense = () => {
+    if (title === "" || amount === "") return;
+
+    const newExpense = {
+      id: Date.now(),
+      title,
+      amount,
+    };
+
+    setExpenses([...expenses, newExpense]);
+    setTitle("");
+    setAmount("");
+  };
+
+  return (
+    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
+      <h2>Daily Expenses Tracker</h2>
+
+      <input
+        type="text"
+        placeholder="Expense title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+      />
+
+      <input
+        type="number"
+        placeholder="Amount"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+      />
+
+      <button
+        onClick={addExpense}
+        style={{ width: "100%", padding: "10px" }}
+      >
+        Add Expense
+      </button>
+
+      <ul style={{ marginTop: "20px" }}>
+        {expenses.map((exp) => (
+          <li key={exp.id}>
+            {exp.title} - ₹{exp.amount}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+
+2.login logout
+
+import React, { useState } from "react";
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>
+        {isLoggedIn ? "Welcome, User" : "Please log in"}
+      </h2>
+
+      <button onClick={toggleLogin} style={{ padding: "10px 20px" }}>
+        {isLoggedIn ? "Logout" : "Login"}
+      </button>
+    </div>
+  );
+}
+
+export default App;
+
+3.Login validation
+
+import React, { useState } from "react";
+
+function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = () => {
+    if (!email.includes("@")) {
+      setError("Invalid email");
+    } else if (password.length < 6) {
+      setError("Password must be 6+ characters");
+    } else {
+      setError("");
+      alert("Login Successful");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Login</h2>
+
+      <input
+        type="text"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <br /><br />
+
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <br /><br />
+
+      <button onClick={handleLogin}>Login</button>
+
+      <p style={{ color: "red" }}>{error}</p>
+    </div>
+  );
+}
+
+export default App;
+
+4.stopwatch
+
+import React, { useState, useRef } from "react";
+
+function App() {
+  const [time, setTime] = useState(0);
+  const timerRef = useRef(null);
+
+  const start = () => {
+    if (timerRef.current) return;
+
+    timerRef.current = setInterval(() => {
+      setTime((t) => t + 1);
+    }, 1000);
+  };
+
+  const stop = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = null;
+  };
+
+  const reset = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = null;
+    setTime(0);
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Stopwatch</h2>
+      <h1>{time}</h1>
+
+      <button onClick={start}>Start</button>
+      <button onClick={stop}>Stop</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
+}
+
+export default App;
+
+5.Studentattendance
+
+import React, { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
+  const [students, setStudents] = useState([]);
+
+  const addStudent = () => {
+    if (name === "" || status === "") return;
+
+    setStudents([...students, { name, status }]);
+    setName("");
+    setStatus("");
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Student Attendance</h2>
+
+      <input
+        type="text"
+        placeholder="Student Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <br /><br />
+
+      <input
+        type="text"
+        placeholder="Present / Absent"
+        value={status}
+        onChange={(e) => setStatus(e.target.value)}
+      />
+      <br /><br />
+
+      <button onClick={addStudent}>Add</button>
+
+      <ul>
+        {students.map((s, i) => (
+          <li key={i}>
+            {s.name} - {s.status}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+
+6.toggle bg
+
+import React, { useState } from "react";
+
+function App() {
+  const [color, setColor] = useState("blue");
+
+  const toggleColor = () => {
+    setColor(color === "blue" ? "yellow" : "blue");
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Color Toggle</h2>
+
+      <div
+        style={{
+          width: "800px",
+          height: "200px",
+          backgroundColor: color,
+          margin: "20px auto"
+        }}
+      ></div>
+
+      <button onClick={toggleColor}>Toggle Color</button>
+    </div>
+  );
+}
+
+export default App;
+
+7.quizjs
+
+import React, { useState } from "react";
+
+function App() {
+  const [answer, setAnswer] = useState("");
+  const [result, setResult] = useState("");
+
+  const checkAnswer = () => {
+    if (answer.toLowerCase() === "tiger") {
+      setResult("Correct");
+    } else {
+      setResult("Wrong");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Quiz</h2>
+      <p>National animal of India</p>
+
+      <input
+        type="text"
+        onChange={(e) => setAnswer(e.target.value)}
+      />
+      <br /><br />
+
+      <button onClick={checkAnswer}>Submit</button>
+
+      <p>{result}</p>
+    </div>
+  );
+}
+
+export default App; 
+
+8.textarea count
+
+import React, { useState } from "react";
+
+function App() {
+  const [text, setText] = useState("");
+
+  const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  const characters = text.length;
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Text Counter</h2>
+
+      <textarea
+        rows="5"
+        cols="30"
+        placeholder="Type here..."
+        onChange={(e) => setText(e.target.value)}
+      ></textarea>
+
+      <p>Words: {words}</p>
+      <p>Characters: {characters}</p>
+    </div>
+  );
+}
+
+export default App;
+
+9.feedback
+
+import React, { useState } from "react";
+
+function App() {
+  const [feedback, setFeedback] = useState("");
+  const [list, setList] = useState([]);
+
+  const submitFeedback = () => {
+    if (feedback === "") return;
+
+    setList([...list, feedback]);
+    setFeedback("");
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Feedback</h2>
+
+      <textarea
+        rows="4"
+        cols="30"
+        value={feedback}
+        onChange={(e) => setFeedback(e.target.value)}
+        placeholder="Enter feedback"
+      ></textarea>
+      <br /><br />
+
+      <button onClick={submitFeedback}>Submit</button>
+
+      <ul>
+        {list.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App; 
+
+10.studentdirectory
+
+import React, { useState, useEffect } from "react";
+
+function App() {
+  const [students, setStudents] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // simulate data fetch delay
+    setTimeout(() => {
+      setStudents([
+        { id: 1, name: "Arun", age: 21 },
+        { id: 2, name: "Meera", age: 22 },
+        { id: 3, name: "Rahul", age: 20 }
+      ]);
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  if (loading) {
+    return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  }
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Student Directory</h2>
+
+      {selected ? (
+        <div>
+          <h3>Profile</h3>
+          <p>Name: {selected.name}</p>
+          <p>Age: {selected.age}</p>
+          <button onClick={() => setSelected(null)}>Back</button>
+        </div>
+      ) : (
+        <ul>
+          {students.map((s) => (
+            <li key={s.id} onClick={() => setSelected(s)}>
+              {s.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+11.todo
+
+import React, { useState } from "react";
+
+function App() {
+  const [task, setTask] = useState("");
+  const [list, setList] = useState([]);
+
+  const add = () => {
+    if (task === "") return;
+    setList([...list, { text: task, done: false }]);
+    setTask("");
+  };
+
+  const toggle = (i) => {
+    const newList = [...list];
+    newList[i].done = !newList[i].done;
+    setList(newList);
+  };
+
+  const remove = (i) => {
+    setList(list.filter((_, index) => index !== i));
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Todo</h2>
+
+      <input onChange={(e) => setTask(e.target.value)} value={task} />
+      <button onClick={add}>Add</button>
+
+      <ul>
+        {list.map((t, i) => (
+          <li key={i}>
+            <span
+              onClick={() => toggle(i)}
+              style={{ textDecoration: t.done ? "line-through" : "none" }}
+            >
+              {t.text}
+            </span>
+            <button onClick={() => remove(i)}>X</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+
+12.blog
+
+import React, { useState } from "react";
+
+function App() {
+  const [page, setPage] = useState("home");
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  const posts = [
+    { id: 1, title: "Post 1", content: "This is post 1" },
+    { id: 2, title: "Post 2", content: "This is post 2" }
+  ];
+
+  if (page === "post") {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h2>{selectedPost.title}</h2>
+        <p>{selectedPost.content}</p>
+        <button onClick={() => setPage("home")}>Back</button>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h2>Blog Home</h2>
+
+      <ul>
+        {posts.map((p) => (
+          <li key={p.id}>
+            <button
+              onClick={() => {
+                setSelectedPost(p);
+                setPage("post");
+              }}
+            >
+              {p.title}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+
+13.admin js
+
+import React, { useState } from "react";
+
+function App() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [page, setPage] = useState("home");
+
+  const goToAdmin = () => {
+    if (isAdmin) {
+      setPage("admin");
+    } else {
+      alert("Access Denied! Not an Admin");
+      setPage("home");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Simple Admin Panel</h1>
+
+      {page === "home" && (
+        <>
+          <h2>Home Page</h2>
+
+          <button onClick={() => setIsAdmin(true)}>
+            Login as Admin
+          </button>
+
+          <br /><br />
+
+          <button onClick={goToAdmin}>
+            Go to Admin Panel
+          </button>
+        </>
+      )}
+
+      {page === "admin" && (
+        <>
+          <h2>Admin Panel</h2>
+          <p>Welcome, Admin</p>
+
+          <button onClick={() => setPage("home")}>
+            Back to Home
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+13.new
+
+import { useState } from "react";
+
+export default function App() {
+  const [role, setRole] = useState(null);
+  const [page, setPage] = useState("home");
+
+  const centerStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    flexDirection: "column"
+  };
+
+  const rowStyle = {
+    display: "flex",
+    gap: "10px"
+  };
+
+  const goToDashboard = () => {
+    if (!role) {
+      alert("Please login first!");
+      return;
+    }
+
+    if (role !== "admin") {
+      alert("Access denied! Only admin can access dashboard.");
+      return;
+    }
+
+    setPage("dashboard");
+  };
+
+  if (page === "dashboard") {
+    return (
+      <div style={centerStyle}>
+        <h2>Admin Dashboard</h2>
+        <p>Welcome, Admin!</p>
+
+        <ul>
+          <li>Manage Users</li>
+          <li>View Reports</li>
+          <li>System Settings</li>
+        </ul>
+
+        <button onClick={() => {
+          setPage("home");
+          setRole(null);
+        }}>
+          Logout
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div style={centerStyle}>
+      <h2>Home</h2>
+
+      <div style={rowStyle}>
+        <button onClick={() => setRole("admin")}>
+          Login as Admin
+        </button>
+
+        <button onClick={() => setRole("user")}>
+          Login as User
+        </button>
+      </div>
+
+      <p>
+        {role ? `Logged in as ${role}` : "Not logged in"}
+      </p>
+
+      <button onClick={goToDashboard}>
+        Go to Dashboard
+      </button>
+    </div>
+  );
+}
+
